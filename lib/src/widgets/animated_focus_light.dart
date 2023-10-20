@@ -136,11 +136,11 @@ abstract class AnimatedFocusLightState extends State<AnimatedFocusLight>
     await widget.clickTargetWithTapPosition?.call(_targetFocus, tapDetails);
   }
 
-  void _runFocus() {
+  void _runFocus() async {
     if (_currentFocus < 0) return;
     _targetFocus = widget.targets[_currentFocus];
     if (_targetFocus.focusTarget) {
-      Scrollable.ensureVisible(
+      await Scrollable.ensureVisible(
           widget.targets[_currentFocus].keyTarget!.currentContext!,
           duration: const Duration(milliseconds: 300),
           curve: Curves.fastEaseInToSlowEaseOut);
