@@ -63,8 +63,6 @@ class AnimatedFocusLight extends StatefulWidget {
 
 abstract class AnimatedFocusLightState extends State<AnimatedFocusLight>
     with TickerProviderStateMixin {
-  bool _firstTap = true;
-  bool _firstTapOnTarget = true;
   final borderRadiusDefault = 10.0;
   final defaultFocusAnimationDuration = const Duration(milliseconds: 600);
   late AnimationController _controller;
@@ -124,33 +122,25 @@ abstract class AnimatedFocusLightState extends State<AnimatedFocusLight>
     bool targetTap = false,
     bool overlayTap = false,
   }) async {
-    if (_firstTap) {
-      nextIndex++;
-      if (targetTap) {
-        await widget.clickTarget?.call(_targetFocus);
-      }
-      if (overlayTap) {
-        await widget.clickOverlay?.call(_targetFocus);
-      }
+    nextIndex++;
+    if (targetTap) {
+      await widget.clickTarget?.call(_targetFocus);
     }
-    _firstTap = false;
+    if (overlayTap) {
+      await widget.clickOverlay?.call(_targetFocus);
+    }
     return _revertAnimation();
   }
 
   Future _tapHandlerForPosition(TapDownDetails tapDetails) async {
-    if (_firstTapOnTarget) {
-      await widget.clickTargetWithTapPosition?.call(_targetFocus, tapDetails);
-    }
-    _firstTapOnTarget = false;
+    await widget.clickTargetWithTapPosition?.call(_targetFocus, tapDetails);
   }
 
-  void _runFocus() async {
+  void _runFocus() {
     if (_currentFocus < 0) return;
-
     _targetFocus = widget.targets[_currentFocus];
-
     if (_targetFocus.focusTarget) {
-      await Scrollable.ensureVisible(
+      Scrollable.ensureVisible(
           widget.targets[_currentFocus].keyTarget!.currentContext!,
           duration: const Duration(milliseconds: 300),
           curve: Curves.fastEaseInToSlowEaseOut);
