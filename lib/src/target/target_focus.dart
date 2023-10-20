@@ -17,6 +17,7 @@ class TargetFocus {
     this.enableTargetTab = true,
     this.alignSkip,
     this.paddingFocus,
+    this.focusTarget = false,
     this.focusAnimationDuration,
     this.unFocusAnimationDuration,
     this.pulseVariation,
@@ -34,6 +35,7 @@ class TargetFocus {
   final Color? color;
   final AlignmentGeometry? alignSkip;
   final double? paddingFocus;
+  final bool focusTarget;
   final Duration? focusAnimationDuration;
   final Duration? unFocusAnimationDuration;
   final Tween<double>? pulseVariation;
