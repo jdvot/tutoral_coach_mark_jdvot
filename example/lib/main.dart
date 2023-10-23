@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   late TutorialCoachMark tutorialCoachMark;
-
+  GlobalKey keyButtonGeneral = GlobalKey();
   GlobalKey keyButton = GlobalKey();
   GlobalKey keyButton1 = GlobalKey();
   GlobalKey keyButton2 = GlobalKey();
@@ -81,6 +81,7 @@ class MyHomePageState extends State<MyHomePage> {
       body: Container(
         color: Colors.white,
         child: Stack(
+          key: keyButtonGeneral,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(top: 100.0),
@@ -256,6 +257,33 @@ class MyHomePageState extends State<MyHomePage> {
 
   List<TargetFocus> _createTargets() {
     List<TargetFocus> targets = [];
+
+    targets.add(
+      TargetFocus(
+          identify: "keyBottomNavigation1",
+          keyTarget: keyButtonGeneral,
+          alignSkip: Alignment.topLeft,
+          contents: [
+            TargetContent(
+              align: ContentAlign.top,
+              builder: (context, controller) {
+                return const Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      "Titulo lorem ipsum",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+          shape: ShapeLightFocus.RRect),
+    );
     targets.add(
       TargetFocus(
         identify: "keyBottomNavigation1",
