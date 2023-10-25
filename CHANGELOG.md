@@ -1,5 +1,6 @@
 # next
 
+- update `onSkip` return future<bool>.
 - adds `focusTarget`. Now is possible get widget in scrollable view.
 - adds `ContentAlign.center`. Align TargetContent middle view.
 
