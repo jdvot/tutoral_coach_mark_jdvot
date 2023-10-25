@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -250,7 +251,7 @@ class MyHomePageState extends State<MyHomePage> {
       },
       onSkip: () {
         print("skip");
-        return true;
+        return Future(true as FutureOr<bool> Function());
       },
     );
   }

@@ -71,7 +71,8 @@ abstract class AnimatedFocusLightState extends State<AnimatedFocusLight>
   late TargetFocus _targetFocus;
   Offset _positioned = const Offset(0.0, 0.0);
   TargetPosition? _targetPosition;
-
+  bool isPaused = false;
+  int pausedFocusIndex = -1;
   double _sizeCircle = 100;
   int _currentFocus = 0;
   double _progressAnimated = 0;
@@ -111,6 +112,21 @@ abstract class AnimatedFocusLightState extends State<AnimatedFocusLight>
   void previous() {
     nextIndex--;
     _revertAnimation();
+  }
+
+  void onPaused() {
+    if (!isPaused) {
+      isPaused = true;
+      pausedFocusIndex = _currentFocus;
+      _controller.stop(); // Arrête l'animation en cours
+    }
+  }
+
+  void onResumed() {
+    if (isPaused) {
+      isPaused = false;
+      _goToFocus(pausedFocusIndex); // Revenir à l'étape où il s'est arrêté
+    }
   }
 
   void goTo(int index) {

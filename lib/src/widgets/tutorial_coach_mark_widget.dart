@@ -294,7 +294,8 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget>
 
   @override
   void next() => _focusLightKey.currentState?.next();
-
+  void onPaused() => _focusLightKey.currentState?.onPaused();
+  void onResumed() => _focusLightKey.currentState?.onResumed();
   @override
   void previous() => _focusLightKey.currentState?.previous();
 
