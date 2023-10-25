@@ -158,7 +158,8 @@ class TutorialCoachMark {
   void next() => _widgetKey.currentState?.next();
 
   void previous() => _widgetKey.currentState?.previous();
-
+  void onPaused() => _widgetKey.currentState?.onPaused();
+  void onResumed() => _widgetKey.currentState?.onResumed();
   void goTo(int index) => _widgetKey.currentState?.goTo(index);
 
   void _removeOverlay() {
