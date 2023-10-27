@@ -50,8 +50,6 @@ abstract class TutorialCoachMarkController {
   void next();
   void previous();
   void skip();
-  void onResumed();
-  void onPaused();
 }
 
 extension StateExt on State {

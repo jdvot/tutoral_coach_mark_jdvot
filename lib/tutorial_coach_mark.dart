@@ -41,7 +41,7 @@ class TutorialCoachMark {
   final int initialFocus;
 
   OverlayEntry? _overlayEntry;
-
+  OverlayEntry? _overlayEntrySave;
   TutorialCoachMark({
     required this.targets,
     this.colorShadow = Colors.black,
@@ -100,11 +100,16 @@ class TutorialCoachMark {
     );
   }
 
-  void show({required BuildContext context, bool rootOverlay = false}) {
+  BuildContext show({required BuildContext context, bool rootOverlay = false}) {
     OverlayState? overlay = Overlay.of(context, rootOverlay: rootOverlay);
     overlay.let((it) {
       showWithOverlayState(overlay: it, rootOverlay: rootOverlay);
     });
+    return overlay.context;
+  }
+
+  void dispose() {
+    _removeOverlay();
   }
 
   // `navigatorKey` needs to be the one that you passed to MaterialApp.navigatorKey
@@ -158,9 +163,20 @@ class TutorialCoachMark {
   void next() => _widgetKey.currentState?.next();
 
   void previous() => _widgetKey.currentState?.previous();
-  void onPaused() => _widgetKey.currentState?.onPaused();
-  void onResumed() => _widgetKey.currentState?.onResumed();
   void goTo(int index) => _widgetKey.currentState?.goTo(index);
+  void removeOverlay() {
+    _removeOverlayAndSaveState();
+  }
+
+  void backOverlay(BuildContext context) {
+    show(context: context);
+  }
+
+  void _removeOverlayAndSaveState() {
+    _overlayEntrySave = _overlayEntry;
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
 
   void _removeOverlay() {
     _overlayEntry?.remove();

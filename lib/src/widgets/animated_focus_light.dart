@@ -114,21 +114,6 @@ abstract class AnimatedFocusLightState extends State<AnimatedFocusLight>
     _revertAnimation();
   }
 
-  void onPaused() {
-    if (!isPaused) {
-      isPaused = true;
-      pausedFocusIndex = _currentFocus;
-      _controller.stop(); // Arrête l'animation en cours
-    }
-  }
-
-  void onResumed() {
-    if (isPaused) {
-      isPaused = false;
-      _goToFocus(pausedFocusIndex); // Revenir à l'étape où il s'est arrêté
-    }
-  }
-
   void goTo(int index) {
     nextIndex = index;
     _revertAnimation();
